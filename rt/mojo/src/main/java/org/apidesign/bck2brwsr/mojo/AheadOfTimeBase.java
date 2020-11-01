@@ -107,7 +107,7 @@ abstract class AheadOfTimeBase<Art> {
                         }
                     }
                 }
-                try (OutputStream js = new FileOutputStream(mainJavaScript()); Writer w = new OutputStreamWriter(js, "UTF-8")) {
+                try (Writer w = new OutputStreamWriter(new FileOutputStream(mainJavaScript()), "UTF-8")) {
                     c.
                             obfuscation(obfuscation()).
                             generate(w);

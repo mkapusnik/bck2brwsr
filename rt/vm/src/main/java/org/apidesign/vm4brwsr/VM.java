@@ -224,11 +224,12 @@ abstract class VM extends ByteCodeToJavaScript {
                 if (name == null) {
                     break;
                 }
-                InputStream is = resources.get(name + ".class");
-                if (is == null) {
-                    lazyReference(out, name);
-                    skipClass.add(name);
-                    continue;
+                try (InputStream is = resources.get(name + ".class")) {
+                    if (is == null) {
+                        lazyReference(out, name);
+                        skipClass.add(name);
+                        continue;
+                    }
                 }
                 try {
                     String ic = generateClass(out, name);
